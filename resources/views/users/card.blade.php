@@ -2,7 +2,7 @@
     <div class="card-body bg-base-200 text-4xl">
         <h2 class="card-title">{{ $user->name }}</h2>
     </div>
-    </div>
+
 {{-- フォロー／アンフォローボタン --}}
 @include('user_follow.follow_button')
 
