@@ -20,7 +20,14 @@
                             <p class="mb-0">{!! nl2br(e($micropost->content)) !!}</p>
                         </div>
                         <div>
-                            @if (Auth::id() == $micropost->user_id)
+
+                        {{-- 投稿編集ボタン --}}
+             @if (Auth::id() == $micropost->user_id)
+                                <form action="{{ route('microposts.edit', $micropost->id) }}" method="GET" style="display:inline">
+                                    @csrf
+                                <button type="submit" class="btn btn-soft btn-info btn-sm normal-case">Edit</button>
+                                </form>
+
                                 {{-- 投稿削除ボタンのフォーム --}}
                                 <form method="POST" action="{{ route('microposts.destroy', $micropost->id) }}">
                                     @csrf

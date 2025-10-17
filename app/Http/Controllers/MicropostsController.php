@@ -62,4 +62,35 @@ class MicropostsController extends Controller
         return back()
             ->with('Delete Failed');
     }
+
+    public function edit($id)
+    {
+        $micropost = Micropost::findOrFail($id);
+
+        // 他人の投稿は編集できないようにする
+        if (Auth::id() !== $micropost->user_id) {
+            return redirect('/')->with('error', 'Unauthorized');
+        }
+
+        return view('microposts.edit', [
+            'micropost' => $micropost,
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'content' => 'required|max:255',
+        ]);
+
+        $micropost = Micropost::findOrFail($id);
+
+        if (Auth::id() === $micropost->user_id) {
+            $micropost->content = $request->content;
+            $micropost->save();
+            return redirect('/')->with('success', 'Updated Successfully');
+        }
+
+        return redirect('/')->with('error', 'Unauthorized');
+    }
 }

@@ -23,7 +23,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::resource('users', UsersController::class, ['only' => ['index', 'show']]);
-    Route::resource('microposts', MicropostsController::class, ['only' => ['store', 'destroy']]);
+    Route::resource('microposts', MicropostsController::class, ['only' => ['store', 'destroy', 'edit','update']]);
 
 Route::prefix('microposts/{id}')->group(function() {
     Route::post('favorite', [FavoritesController::class, 'store'])->name('favorites.favorite');
